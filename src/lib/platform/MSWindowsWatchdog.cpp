@@ -62,6 +62,7 @@ std::string activeDesktopName()
 MSWindowsWatchdog::MSWindowsWatchdog(
     bool daemonized,
     bool autoDetectCommand,
+    HANDLE m_pipeHandle(NULL),
     IpcServer& ipcServer,
     IpcLogOutputter& ipcLogOutputter) :
     m_thread(NULL),
@@ -173,8 +174,8 @@ MSWindowsWatchdog::mainLoop(void*)
     saAttr.nLength = sizeof(SECURITY_ATTRIBUTES); 
     saAttr.bInheritHandle = TRUE; 
     saAttr.lpSecurityDescriptor = NULL; 
-
-    if (!CreatePipe(&m_stdOutRead, &m_stdOutWrite, &saAttr, 0)) {
+    m_pipeHandle=CreatePipe(&m_stdOutRead, &m_stdOutWrite, &saAttr, 0);
+    if (!m_pipeHandle) {
         throw XArch(new XArchEvalWindows());
     }
 
@@ -250,6 +251,9 @@ MSWindowsWatchdog::mainLoop(void*)
     }
     
     LOG((CLOG_DEBUG "watchdog main thread finished"));
+    if (!m_pipeHandle) {
+        CloseHandle(m_pipeHandle);
+    }
 }
 
 bool
