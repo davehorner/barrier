@@ -41,7 +41,9 @@ That's it.
 
 ### Project goals
 
-Hassle-free reliability. We are users, too. Barrier was created so that we could solve the issues we had with synergy and then share these fixes with other users.
+hassle-free security and reliability.  *That's it.*
+
+We are users, too. Barrier was created so that we could solve the issues we had with synergy and then share these fixes with other users.
 
 Compatibility. We use more than one operating system and you probably do, too. Windows, OSX, Linux, FreeBSD... Barrier should "just work". We will also have our eye on Wayland when the time comes.
 
